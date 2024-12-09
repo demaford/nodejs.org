@@ -18,9 +18,6 @@
     "plugins": [{ "name": "next" }],
     "baseUrl": "."
   },
-  "mdx": {
-    "checkMdx": true
-  },
   "include": [
     "next-env.d.ts",
     "**/*.mdx",
@@ -28,8 +25,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".storybook/**/*.ts",
-    ".storybook/**/*.tsx",
-    "build/types/**/*.ts"
+    ".storybook/**/*.tsx"
   ],
   "exclude": ["node_modules", ".next"]
 }
