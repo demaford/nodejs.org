@@ -16,8 +16,9 @@
         "NEXT_PUBLIC_BASE_PATH",
         "NEXT_PUBLIC_ORAMA_API_KEY",
         "NEXT_PUBLIC_ORAMA_ENDPOINT",
-        "NEXT_PUBLIC_VERCEL_REVALIDATE_TIME",
-        "NEXT_PUBLIC_DATA_URL"
+        "NEXT_PUBLIC_DATA_URL",
+        "TURBO_CACHE",
+        "TURBO_TELEMETRY_DISABLED"
       ]
     },
     "build": {
@@ -40,8 +41,9 @@
         "NEXT_PUBLIC_BASE_PATH",
         "NEXT_PUBLIC_ORAMA_API_KEY",
         "NEXT_PUBLIC_ORAMA_ENDPOINT",
-        "NEXT_PUBLIC_VERCEL_REVALIDATE_TIME",
-        "NEXT_PUBLIC_DATA_URL"
+        "NEXT_PUBLIC_DATA_URL",
+        "TURBO_CACHE",
+        "TURBO_TELEMETRY_DISABLED"
       ]
     },
     "start": {
@@ -57,8 +59,9 @@
         "NEXT_PUBLIC_BASE_PATH",
         "NEXT_PUBLIC_ORAMA_API_KEY",
         "NEXT_PUBLIC_ORAMA_ENDPOINT",
-        "NEXT_PUBLIC_VERCEL_REVALIDATE_TIME",
-        "NEXT_PUBLIC_DATA_URL"
+        "NEXT_PUBLIC_DATA_URL",
+        "TURBO_CACHE",
+        "TURBO_TELEMETRY_DISABLED"
       ]
     },
     "deploy": {
@@ -80,8 +83,9 @@
         "NEXT_PUBLIC_BASE_PATH",
         "NEXT_PUBLIC_ORAMA_API_KEY",
         "NEXT_PUBLIC_ORAMA_ENDPOINT",
-        "NEXT_PUBLIC_VERCEL_REVALIDATE_TIME",
-        "NEXT_PUBLIC_DATA_URL"
+        "NEXT_PUBLIC_DATA_URL",
+        "TURBO_CACHE",
+        "TURBO_TELEMETRY_DISABLED"
       ]
     },
     "lint:js": {
