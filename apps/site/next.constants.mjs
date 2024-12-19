@@ -15,16 +15,6 @@ export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 export const VERCEL_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV || undefined;
 
 /**
- * This is used for defining a default time of when `next-data` and other dynamically generated
- * but static-enabled pages should be regenerated.
- *
- * Note that this is a custom Environment Variable that can be defined by us when necessary
- */
-export const VERCEL_REVALIDATE = Number(
-  process.env.NEXT_PUBLIC_VERCEL_REVALIDATE_TIME || 300
-);
-
-/**
  * This is used for telling Next.js to do a Static Export Build of the Website
  *
  * This is used for static/without a Node.js server hosting, such as on our
@@ -100,6 +90,17 @@ export const NEXT_DATA_URL = process.env.NEXT_PUBLIC_DATA_URL
 export const MD_EXTENSION_REGEX = /((\/)?(index))?\.mdx?$/i;
 
 /**
+ * This is the default type of blog post type that we use for OG Meta Tags
+ */
+export const DEFAULT_CATEGORY_OG_TYPE = 'announcement';
+
+/**
+ * This is the base url for changelog entries
+ */
+export const BASE_CHANGELOG_URL =
+  'https://github.com/nodejs/node/releases/tag/v';
+
+/**
  * This defines how many blog posts each pagination page should have
  */
 export const BLOG_POSTS_PER_PAGE = 6;
@@ -130,8 +131,7 @@ export const EXTERNAL_LINKS_SITEMAP = [
  * @see https://docs.oramasearch.com/open-source/usage/search/introduction
  */
 export const DEFAULT_ORAMA_QUERY_PARAMS = {
-  mode: 'fulltext',
-  limit: 8,
+  limit: 25,
   threshold: 0,
   boost: {
     pageSectionTitle: 4,
@@ -142,6 +142,15 @@ export const DEFAULT_ORAMA_QUERY_PARAMS = {
     siteSection: {},
   },
 };
+
+/**
+ * The initial Orama Cloud chat suggestions visible in the empty state of the search box.
+ */
+export const DEFAULT_ORAMA_SUGGESTIONS = [
+  'How to install Node.js?',
+  'How to create an HTTP server?',
+  'Upgrading Node.js version',
+];
 
 /**
  * The default batch size to use when syncing Orama Cloud
@@ -178,8 +187,3 @@ export const GITHUB_API_KEY = process.env.NEXT_GITHUB_API_KEY || '';
  */
 export const ESP_SUPPORT_THRESHOLD_VERSION =
   process.env.ESP_SUPPORT_THRESHOLD_VERSION || '18.0.0';
-
-/**
- * This deep link into the app is repeated in the top nav, but we want to ignore it for active-link highlighting, since it will be covered by About
- */
-export const VERSION_SUPPORT_SHORTCUT = '/about/previous-releases';
