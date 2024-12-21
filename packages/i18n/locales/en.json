@@ -5,6 +5,7 @@
         "links": {
           "trademarkPolicy": "Trademark Policy",
           "privacyPolicy": "Privacy Policy",
+          "versionSupport": "Version Support",
           "codeOfConduct": "Code of Conduct",
           "security": "Security Policy"
         }
@@ -14,12 +15,12 @@
           "about": "About",
           "download": "Download",
           "docs": "Docs",
-          "support": "Version Support",
           "guides": "Guides",
           "learn": "Learn",
           "security": "Security",
           "certification": "Certification",
-          "blog": "Blog"
+          "blog": "Blog",
+          "contribute": "Contribute"
         }
       }
     },
@@ -29,7 +30,6 @@
           "links": {
             "gettingStarted": "Getting Started",
             "introductionToNodejs": "Introduction to Node.js",
-            "howToInstallNodejs": "How to install Node.js",
             "howMuchJavascriptDoYouNeedToKnowToUseNodejs": "How much JavaScript do you need to know to use Node.js?",
             "differencesBetweenNodejsAndTheBrowser": "Differences between Node.js and the Browser",
             "theV8JavascriptEngine": "The V8 JavaScript Engine",
@@ -90,6 +90,7 @@
         "modules": {
           "links": {
             "modules": "Modules",
+            "publishingAPackage": "Publishing a package",
             "publishingNodeApiModules": "How to publish a Node-API package",
             "anatomyOfAnHttpTransaction": "Anatomy of an HTTP Transaction",
             "abiStability": "ABI Stability",
