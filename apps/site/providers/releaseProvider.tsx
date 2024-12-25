@@ -3,8 +3,7 @@
 import type { Dispatch, PropsWithChildren, FC } from 'react';
 import { createContext, useMemo, useReducer } from 'react';
 
-import WithChangelogModal from '@/components/withChangelogModal';
-import type { NodeRelease } from '@/types';
+import type { DownloadSnippet, NodeRelease } from '@/types';
 import type {
   ReleaseDispatchActions,
   ReleaseAction,
@@ -14,12 +13,10 @@ import type {
 } from '@/types/release';
 
 const initialState: ReleaseState = {
-  releases: [],
-  release: {} as NodeRelease,
-  os: 'OTHER',
+  os: 'LOADING',
   bitness: '',
   platform: 'NVM',
-  modalOpen: false,
+  version: '',
 };
 
 const createDispatchActions = (
@@ -29,35 +26,33 @@ const createDispatchActions = (
   setOS: payload => dispatch({ type: 'SET_OS', payload }),
   setBitness: payload => dispatch({ type: 'SET_BITNESS', payload }),
   setPlatform: payload => dispatch({ type: 'SET_PLATFORM', payload }),
-  setModalOpen: payload => dispatch({ type: 'SET_MODAL_OPEN', payload }),
 });
 
 export const ReleaseContext = createContext<ReleaseContextType>({
   ...initialState,
   ...createDispatchActions(() => {}),
+  releases: [],
+  snippets: [],
+  release: {} as NodeRelease,
+  snippet: {} as DownloadSnippet,
 });
 
 export const ReleaseProvider: FC<PropsWithChildren<ReleaseProviderProps>> = ({
   children,
   releases,
+  snippets,
   initialRelease,
 }) => {
-  const getReleaseFromVersion = (version: string) =>
-    releases.find(({ versionWithPrefix }) => versionWithPrefix === version) ??
-    ({} as NodeRelease);
-
   const releaseReducer = (state: ReleaseState, action: ReleaseAction) => {
     switch (action.type) {
       case 'SET_VERSION':
-        return { ...state, release: getReleaseFromVersion(action.payload) };
+        return { ...state, version: action.payload };
       case 'SET_OS':
         return { ...state, os: action.payload };
       case 'SET_BITNESS':
         return { ...state, bitness: action.payload };
       case 'SET_PLATFORM':
         return { ...state, platform: action.payload };
-      case 'SET_MODAL_OPEN':
-        return { ...state, modalOpen: action.payload };
       default:
         return state;
     }
@@ -65,21 +60,37 @@ export const ReleaseProvider: FC<PropsWithChildren<ReleaseProviderProps>> = ({
 
   const [state, dispatch] = useReducer(releaseReducer, {
     ...initialState,
-    releases: releases,
-    release: initialRelease,
+    version: initialRelease.versionWithPrefix,
   });
 
   const actions = useMemo(() => createDispatchActions(dispatch), [dispatch]);
 
-  return (
-    <ReleaseContext.Provider value={{ ...state, ...actions }}>
-      {children}
+  const releaseFromVersion = useMemo(
+    () => releases.find(r => r.versionWithPrefix === state.version)!,
+    // Memoizes the release based on the version
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.version]
+  );
 
-      <WithChangelogModal
-        release={state.release}
-        modalOpen={state.modalOpen}
-        setModalOpen={actions.setModalOpen}
-      />
+  const snippetFromPlatform = useMemo(
+    () => snippets.find(s => s.name === state.platform.toLowerCase())!,
+    // Memoizes the snippet based on the platform
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.platform]
+  );
+
+  const providerContext = {
+    ...state,
+    ...actions,
+    releases,
+    snippets,
+    release: releaseFromVersion,
+    snippet: snippetFromPlatform,
+  };
+
+  return (
+    <ReleaseContext.Provider value={providerContext}>
+      {children}
     </ReleaseContext.Provider>
   );
 };

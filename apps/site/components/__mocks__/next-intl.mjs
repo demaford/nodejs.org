@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import { redirect, usePathname, useRouter } from 'next/navigation';
+'use strict';
 
 export const useMessages = () => ({});
 
@@ -27,9 +26,12 @@ export const useFormatter = () => {
 
 export const NextIntlClientProvider = ({ children }) => children;
 
-export const createSharedPathnamesNavigation = () => ({
-  Link: Link,
-  redirect: redirect,
-  usePathname: usePathname,
-  useRouter: useRouter,
+export const createNavigation = () => ({
+  Link: props => <a {...props} onClick={e => e.preventDefault()} />,
+  redirect: () => void null,
+  usePathname: () => '',
+  useRouter: () => ({ push: () => void null, replace: () => void null }),
 });
+
+// eslint-disable-next-line react-hooks/rules-of-hooks
+export const getTranslations = () => Promise.resolve(useTranslations());

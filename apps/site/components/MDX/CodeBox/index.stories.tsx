@@ -1,8 +1,8 @@
 import type { Meta as MetaObj, StoryObj } from '@storybook/react';
 import { VFile } from 'vfile';
 
-import { MDXRenderer } from '@/components/mdxRenderer';
-import { compileMDX } from '@/next.mdx.compiler.mjs';
+import { compile } from '@/next.mdx.compiler.mjs';
+import { MDX_COMPONENTS } from '@/next.mdx.components.mjs';
 
 type Props = { children: string };
 
@@ -35,9 +35,13 @@ export default {
   render: (_, { loaded: { Content } }) => Content,
   loaders: [
     async ({ args }) => {
-      const { MDXContent } = await compileMDX(new VFile(args.children), 'mdx');
+      const { content } = await compile(
+        new VFile(args.children),
+        'mdx',
+        MDX_COMPONENTS
+      );
 
-      return { Content: <MDXRenderer Component={MDXContent} /> };
+      return { Content: content };
     },
   ],
 } as Meta;
